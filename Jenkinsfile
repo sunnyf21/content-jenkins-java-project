@@ -10,6 +10,11 @@ pipeline {
      steps {
        sh 'ant -f test.xml -v'
        junit 'reports/result.xml'
+     post {
+       success{
+         archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
+        }
+       }
      }
     }
 
@@ -42,9 +47,4 @@ pipeline {
    }  
 }
 
-  post {
-    always{
-      archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true 
-  }
- }
 }
